@@ -7,7 +7,7 @@ def checkout(skus):
         return -1
     
     if len(skus) == 0:
-        return ""
+        return 0
     
     total = 0
     counts = Counter(skus)
@@ -38,6 +38,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
