@@ -7,5 +7,3 @@ class TestCheckout():
         assert checkout_solution.checkout('') == 0
 
         assert checkout_solution.checkout('AABBAABCD') == 290
-
-
