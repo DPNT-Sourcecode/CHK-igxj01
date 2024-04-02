@@ -12,6 +12,7 @@ def checkout(skus):
 
     if counts['F'] >= 3:
         free_f = counts['F'] // 2
+        print(counts['F'], free_f)
         counts['F'] -= free_f if counts['F'] - free_f >= 0 else 0
 
     for sku, count in counts.items():
@@ -40,11 +41,12 @@ def checkout(skus):
         elif sku == 'E':
             total += 40
         elif sku == 'F':
-            total += 40
+            total += 10
         else:
             return -1
         
     return total
+
 
 
 
