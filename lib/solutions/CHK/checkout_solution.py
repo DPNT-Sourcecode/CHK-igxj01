@@ -223,21 +223,25 @@ def apply_anfx_deals(counts, remaining_skus, total):
     
     #NB: Assuming only one group deal applied
     if 'items' in anfx_deals[0]:
-        nfx_deal = anfx_deals[0]
+        anfx_deal = anfx_deals[0]
         temp = dict(counts)
 
         while True:
-            counts = [{'sku': k, 'count': v} for k, v in temp if k in anfx_deals[0]['items'] and v > 0]
-            min_n = sorted(counts, key=lambda x: x['count'])[:nfx_deal['n']]
+            counts = [{'sku': k, 'count': v} for k, v in temp if k in anfx_deal['items'] and v > 0]
+            min_n = sorted(counts, key=lambda x: x['count'])[:anfx_deal['n']]
+            print(counts)
 
             if len(min_n) == 3:
                 total += 45
 
-                for i in range(nfx_deal['n']):
+                for i in range(anfx_deal['n']):
                     temp[min_n[i]['sku']] -= 1
 
             else:
-                remaining_skus.extend()
+                break
+                # for k, v in temp:
+                #     print(k, v)
+                    # remaining_skus.extend([k for _ in range(v)])
     return remaining_skus, total
 
 
@@ -259,3 +263,4 @@ def checkout(skus):
             return -1
         
     return total
+
