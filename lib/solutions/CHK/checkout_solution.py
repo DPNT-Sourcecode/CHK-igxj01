@@ -217,6 +217,7 @@ def apply_nfx_deals(counts):
 
 
 def apply_anfx_deals(counts, remaining_skus, total):
+    print(counts)
     anfx_deals = []
     for sku in [k for k, v in items.items() if 'deals' in v]:
         anfx_deals += [x for x in items[sku]['deals'] if x['type'] == 'anfx']
@@ -263,4 +264,5 @@ def checkout(skus):
             return -1
         
     return total
+
 
