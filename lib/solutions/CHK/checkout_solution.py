@@ -191,9 +191,9 @@ def apply_group_deals(counts, remaining_skus, total):
         while True:
             counts = [{'sku': k, 'count': v, 'price': items[k]['price']} for k, v in temp.items() if k in deal['items'] and v > 0]
             counts_sorted = sorted(counts, key=lambda x: x['price'], reverse=True)
-            print(counts_sorted)
 
-            # to_group = [sku for sku in counts_sorted]
+            to_group = [[x['sku'] for _ in range(x['count']) ] for x in counts_sorted]
+            print(to_group)
 
             if False: #len(counts_sorted) == deal['n']:
                 total += 45
@@ -226,4 +226,5 @@ def checkout(skus):
             return -1
         
     return total
+
 
