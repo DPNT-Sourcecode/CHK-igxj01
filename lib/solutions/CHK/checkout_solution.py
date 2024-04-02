@@ -3,12 +3,6 @@ from collections import Counter
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    if not skus or not isinstance(skus, str):
-        return -1
-    
-    if len(skus) == 0:
-        return 0
-    
     total = 0
     counts = Counter(skus)
     remaining_skus = []
@@ -38,6 +32,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
