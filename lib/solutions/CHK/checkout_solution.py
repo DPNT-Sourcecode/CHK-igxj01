@@ -167,6 +167,8 @@ def apply_nfx_deals(counts):
             current_count = count
 
             for i, nfx_deal in enumerate(nfx_deals):
+                print(current_count)
+
                 deal = current_count // nfx_deal['n']
                 total += deal * nfx_deal['x']
                 print(deal, total)
@@ -174,10 +176,10 @@ def apply_nfx_deals(counts):
                 current_count = (count - (deal * nfx_deal['n']))
                 
                 if i == len(nfx_deals) - 1:
-                    remaining_skus.extend([sku for _ in range(current_count % nfx_deal['n'])])
-                
+                    remaining_skus.extend([sku for _ in range(current_count % nfx_deal['n'])])                
         else:
             remaining_skus.extend([sku for _ in range(count)])
+    print(remaining_skus, total)
     
     return remaining_skus, total
 
@@ -201,6 +203,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
