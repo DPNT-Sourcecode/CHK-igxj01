@@ -110,7 +110,7 @@ items = {
         'deals': [
             {'type': 'anfx',
              'n': 3,
-             'i': ['S', 'T', 'X', 'Y', 'Z'],
+             'items': ['S', 'T', 'X', 'Y', 'Z'],
              'x': 45}
         ]
     },
@@ -147,7 +147,7 @@ items = {
         'price': 20,
         'deals': [
             {'type': 'anfx',
-             'i': ['S', 'T', 'X', 'Y', 'Z'],
+             'items': ['S', 'T', 'X', 'Y', 'Z'],
              'x': 45}
         ]
     },
@@ -217,13 +217,19 @@ def apply_nfx_deals(counts):
 
 
 def apply__deals():
+    anfx_deals = []
+    for sku in items.keys():
+        anfx_deals += [x for x in items[sku]['deals'] if x['type'] == 'anfx']
+
+    anfx_deals = 
+    
     #NB: Assuming only one group deal can be applied
-    if 'items' in _deals[0]:
-        nfx_deal = nfx_deals[0]
+    if 'items' in anfx_deals[0]:
+        nfx_deal = anfx_deals[0]
         temp = dict(counts)
 
         while True:
-            counts = [{'sku': k, 'count': v} for k, v in temp if k in nfx_deals[0]['items'] and v > 0]
+            counts = [{'sku': k, 'count': v} for k, v in temp if k in anfx_deals[0]['items'] and v > 0]
             min_n = sorted(counts, key=lambda x: x['count'])[:nfx_deal['n']]
 
             if len(min_n) == 3:
@@ -255,5 +261,6 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
