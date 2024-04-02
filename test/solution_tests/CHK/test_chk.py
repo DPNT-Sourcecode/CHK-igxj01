@@ -3,7 +3,6 @@ from solutions.CHK import checkout_solution
 class TestCheckout():
     def test_checkout(self):
         assert checkout_solution.checkout('None') == -1
-        assert checkout_solution.checkout('EFG') == -1
         assert checkout_solution.checkout('') == 0
 
         assert checkout_solution.checkout('EEB') == 80
@@ -30,3 +29,4 @@ class TestCheckout():
         assert checkout_solution.checkout('AABBAAAABCDEEFFFFF') == 450
         assert checkout_solution.checkout('AABBAAAAAABCDEEFFFFFF') == 530
         
+
