@@ -99,7 +99,7 @@ items = {
     'S': {
         'price': 20,
         'deals': [
-            {'type': 'nfx',
+            {'type': 'anfx',
              'n': 3,
              'items': ['S', 'T', 'X', 'Y', 'Z'],
              'x': 45}
@@ -108,7 +108,7 @@ items = {
     'T': {
         'price': 20,
         'deals': [
-            {'type': 'nfx',
+            {'type': 'anfx',
              'n': 3,
              'i': ['S', 'T', 'X', 'Y', 'Z'],
              'x': 45}
@@ -137,7 +137,7 @@ items = {
     'X': {
         'price': 17,
         'deals': [
-            {'type': 'nfx',
+            {'type': 'anfx',
              'n': 3,
              'items': ['S', 'T', 'X', 'Y', 'Z'],
              'x': 45}
@@ -146,7 +146,7 @@ items = {
     'Y': {
         'price': 20,
         'deals': [
-            {'type': 'nfx',
+            {'type': 'anfx',
              'i': ['S', 'T', 'X', 'Y', 'Z'],
              'x': 45}
         ]
@@ -154,7 +154,7 @@ items = {
     'Z': {
         'price': 21,
         'deals': [
-            {'type': 'nfx',
+            {'type': 'anfx',
              'n': 3,
              'items': ['S', 'T', 'X', 'Y', 'Z'],
              'x': 45}
@@ -199,37 +199,42 @@ def apply_nfx_deals(counts):
             if len(nfx_deals) == 0:
                 remaining_skus.extend([sku for _ in range(count)])
                 continue
-
-            #NB: Assuming only one group deal can be applied
-            if 'items' in nfx_deals[0]:
-                counts = [{'item': k, 'count': v} for k, v in counts if k in nfx_deals[0]['items'] and v > 0]
-
-                while True:
-                    
-                    min_3 = sorted(counts, key=lambda x: x['count'])[:3]
-
-                    if len(min_3) == 3:
-
-                    else:
-                        break
             
-                    
+            current_count = count
 
+            for i, nfx_deal in enumerate(nfx_deals):
+                deal = current_count // nfx_deal['n']
+                total += deal * nfx_deal['x']
+                
+                if i == len(nfx_deals) - 1:
+                    remaining_skus.extend([sku for _ in range(current_count % nfx_deal['n'])])
 
-            else:
-                current_count = count
-
-                for i, nfx_deal in enumerate(nfx_deals):
-                    deal = current_count // nfx_deal['n']
-                    total += deal * nfx_deal['x']
-                    
-                    if i == len(nfx_deals) - 1:
-                        remaining_skus.extend([sku for _ in range(current_count % nfx_deal['n'])])
-
-                    current_count = (count - (deal * nfx_deal['n']))
+                current_count = (count - (deal * nfx_deal['n']))
         else:
             remaining_skus.extend([sku for _ in range(count)])
     
+    return remaining_skus, total
+
+
+def apply__deals():
+    #NB: Assuming only one group deal can be applied
+    if 'items' in _deals[0]:
+        nfx_deal = nfx_deals[0]
+        temp = dict(counts)
+
+        while True:
+            counts = [{'sku': k, 'count': v} for k, v in temp if k in nfx_deals[0]['items'] and v > 0]
+            min_n = sorted(counts, key=lambda x: x['count'])[:nfx_deal['n']]
+
+            if len(min_n) == 3:
+                total += 45
+
+                for i in range(nfx_deal['n']):
+                    temp[min_n[i]['sku']] -= 1
+
+            else:
+                pass
+                # remaining_skus = 
     return remaining_skus, total
 
 
@@ -250,4 +255,5 @@ def checkout(skus):
             return -1
         
     return total
+
 
