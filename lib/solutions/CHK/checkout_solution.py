@@ -161,6 +161,7 @@ def apply_nfx_deals(counts):
     for sku, count in counts.items():
         if sku in items.keys() and 'deals' in items[sku]:
             nfx_deals = [x for x in items[sku]['deals'] if x['type'] == 'nfx']
+
             nfx_deals = sorted(nfx_deals, key=lambda x: x['n'], reverse=True)
 
             if len(nfx_deals) == 0:
@@ -188,10 +189,13 @@ def apply_group_deals(counts, remaining_skus, total):
 
     for deal in group_deals:
         while True:
-            counts = [{'sku': k, 'count': v} for k, v in temp.items() if k in deal['items'] and v > 0]
-            min_n = sorted(counts, key=lambda x: x['count'])[:deal['n']]
+            counts = [{'sku': k, 'count': v, 'price': items[k]['price']} for k, v in temp.items() if k in deal['items'] and v > 0]
+            counts_sorted = sorted(counts, key=lambda x: x['price'], reverse=True)
+            print(counts_sorted)
 
-            if len(min_n) == deal['n']:
+            # to_group = [sku for sku in counts_sorted]
+
+            if False: #len(counts_sorted) == deal['n']:
                 total += 45
 
                 for i in range(deal['n']):
@@ -222,3 +226,4 @@ def checkout(skus):
             return -1
         
     return total
+
