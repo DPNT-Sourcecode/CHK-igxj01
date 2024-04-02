@@ -20,8 +20,6 @@ def checkout(skus):
         else:
             remaining_skus.extend([sku for _ in range(count)])
 
-    print(remaining_skus, total)
-
     for sku in remaining_skus:
         if sku == 'A':
             total += 50
@@ -36,6 +34,4 @@ def checkout(skus):
         
     return total
 
-if __name__ == "__main__":
-    print(checkout("AABBAABCD"))
 
