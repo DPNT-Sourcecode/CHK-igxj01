@@ -5,6 +5,9 @@ class TestCheckout():
         # assert checkout_solution.checkout('None') == -1
         # assert checkout_solution.checkout('') == 0
 
+        assert checkout_solution.checkout('SXZ') == 45
+        assert checkout_solution.checkout('STXSTX') == 90
+
         assert checkout_solution.checkout('EEB') == 80
         assert checkout_solution.checkout('EEEB') == 120
         # assert checkout_solution.checkout('EEEEBB') == 160
@@ -41,4 +44,5 @@ class TestCheckout():
         # assert checkout_solution.checkout('U') == 40
 
         
+
 
