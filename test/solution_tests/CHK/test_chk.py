@@ -9,4 +9,8 @@ class TestCheckout():
 
         assert checkout_solution.checkout('AABBAABCD') == 290
         assert checkout_solution.checkout('AABBAABCDEE') == 340
+        assert checkout_solution.checkout('AABBAAABCDEE') == 360
+        assert checkout_solution.checkout('AABBAAAABCDEE') == 410
+        assert checkout_solution.checkout('AABBAAAAAABCDEE') == 540
+
 
