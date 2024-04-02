@@ -162,23 +162,18 @@ def apply_xfn_deals(counts):
 
             current_count = count
 
-            print(sku)
-
             for i, xfn_deal in enumerate(xfn_deals):
                 deal = current_count // xfn_deal['n']
                 total += deal * xfn_deal['x']
 
-                print(deal, total, current_count)
-
                 current_count = (count - (deal * xfn_deal['n']))
                 
                 if i == len(xfn_deals) - 1:
+                    print([sku for _ in range(current_count % xfn_deal['n'])])
                     remaining_skus.extend([sku for _ in range(current_count % xfn_deal['n'])])
                 
         else:
             remaining_skus.extend([sku for _ in range(count)])
-    
-    print(remaining_skus, total)
     
     return remaining_skus, total
 
@@ -211,6 +206,7 @@ def checkout(skus):
 
     remaining_skus, total = apply_xfn_deals(counts)
 
+
     for sku in remaining_skus:
         if sku in items.keys():
             total += items[sku]['price']
@@ -218,7 +214,3 @@ def checkout(skus):
             return -1
         
     return total
-
-
-
-
