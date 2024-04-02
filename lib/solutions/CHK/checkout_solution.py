@@ -216,12 +216,12 @@ def apply_nfx_deals(counts):
     return remaining_skus, total
 
 
-def apply__deals():
+def apply_anfx_deals(counts, remaining_skus, total):
     anfx_deals = []
     for sku in items.keys():
         anfx_deals += [x for x in items[sku]['deals'] if x['type'] == 'anfx']
 
-    anfx_deals = 
+    # anfx_deals = 
     
     #NB: Assuming only one group deal can be applied
     if 'items' in anfx_deals[0]:
@@ -253,6 +253,7 @@ def checkout(skus):
 
     counts = apply_bng1f_deal(Counter(skus))
     remaining_skus, total = apply_nfx_deals(counts)
+    remaining_skus, total = apply_anfx_deals(counts, remaining_skus, total)
 
     for sku in remaining_skus:
         if sku in items.keys():
@@ -261,6 +262,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
