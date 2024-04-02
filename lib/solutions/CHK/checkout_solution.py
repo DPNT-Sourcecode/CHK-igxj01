@@ -96,24 +96,8 @@ items = {
              'f': 'Q'}
         ]
     },
-    'S': {
-        'price': 20,
-        'deals': [
-            {'type': 'anfx',
-             'n': 3,
-             'items': ['S', 'T', 'X', 'Y', 'Z'],
-             'x': 45}
-        ]
-    },
-    'T': {
-        'price': 20,
-        'deals': [
-            {'type': 'anfx',
-             'n': 3,
-             'items': ['S', 'T', 'X', 'Y', 'Z'],
-             'x': 45}
-        ]
-    },
+    'S': {'price': 20},
+    'T': {'price': 20},
     'U': {
         'price': 40,
         'deals': [
@@ -134,33 +118,16 @@ items = {
         ]
     },
     'W': {'price': 20},
-    'X': {
-        'price': 17,
-        'deals': [
-            {'type': 'anfx',
-             'n': 3,
-             'items': ['S', 'T', 'X', 'Y', 'Z'],
-             'x': 45}
-        ]
-    },
-    'Y': {
-        'price': 20,
-        'deals': [
-            {'type': 'anfx',
-             'items': ['S', 'T', 'X', 'Y', 'Z'],
-             'x': 45}
-        ]
-    },
-    'Z': {
-        'price': 21,
-        'deals': [
-            {'type': 'anfx',
-             'n': 3,
-             'items': ['S', 'T', 'X', 'Y', 'Z'],
-             'x': 45}
-        ]
-    }
+    'X': {'price': 17},
+    'Y': {'price': 20},
+    'Z': {'price': 21}
 }
+
+group_deals = [
+    {'items': ['S', 'T', 'X', 'Y', 'Z'],
+     'n': 3,
+     'x': 45}
+]
 
 
 def apply_bng1f_deal(counts):
@@ -216,26 +183,19 @@ def apply_nfx_deals(counts):
     return remaining_skus, total
 
 
-def apply_anfx_deals(counts, remaining_skus, total):
-    print(counts)
-    anfx_deals = []
-    for sku in [k for k, v in items.items() if 'deals' in v]:
-        anfx_deals += [x for x in items[sku]['deals'] if x['type'] == 'anfx']
-    
-    #NB: Assuming only one group deal applied
-    if 'items' in anfx_deals[0]:
-        anfx_deal = anfx_deals[0]
-        temp = dict(counts)
+def apply_group_deals(counts, remaining_skus, total):
+    temp = dict(counts)
 
+    for deal in group_deals:
         while True:
-            counts = [{'sku': k, 'count': v} for k, v in temp if k in anfx_deal['items'] and v > 0]
-            min_n = sorted(counts, key=lambda x: x['count'])[:anfx_deal['n']]
+            counts = [{'sku': k, 'count': v} for k, v in temp if k in deal['items'] and v > 0]
+            min_n = sorted(counts, key=lambda x: x['count'])[:deal['n']]
             print(counts)
 
             if len(min_n) == 3:
                 total += 45
 
-                for i in range(anfx_deal['n']):
+                for i in range(deal['n']):
                     temp[min_n[i]['sku']] -= 1
 
             else:
@@ -255,7 +215,7 @@ def checkout(skus):
 
     counts = apply_bng1f_deal(Counter(skus))
     remaining_skus, total = apply_nfx_deals(counts)
-    remaining_skus, total = apply_anfx_deals(counts, remaining_skus, total)
+    remaining_skus, total = apply_group_deals(counts, remaining_skus, total)
 
     for sku in remaining_skus:
         if sku in items.keys():
@@ -264,5 +224,6 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
