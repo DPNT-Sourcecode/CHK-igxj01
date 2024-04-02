@@ -13,8 +13,10 @@ def checkout(skus):
     if counts['F'] >= 3:
         free_f = counts['F'] // 2
 
-        free_f = free_f - 1 if (counts['F'] // 2) * 2 > counts['F'] else free_f
-        print(free_f)
+        if counts['F'] // 2 + free_f > counts['F']:
+            free_f -= 1
+
+        print(counts['F'] // 2, free_f, counts['F'] // 2 + free_f, counts['F'])
         
         counts['F'] -= free_f if counts['F'] - free_f >= 0 else 0
 
@@ -49,4 +51,5 @@ def checkout(skus):
             return -1
         
     return total
+
 
