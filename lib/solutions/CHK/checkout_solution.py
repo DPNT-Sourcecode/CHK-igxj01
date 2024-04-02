@@ -155,6 +155,7 @@ def apply_xfn_deals(counts):
     for sku, count in counts.items():
         if sku in items.keys() and 'deals' in items[sku]:
             xfn_deals = [x for x in items[sku]['deals'] if x['type'] == 'nfx']
+            xfn_deals = sorted(xfn_deals, key=lambda x: x['n'], reverse=True)
 
             if len(xfn_deals) == 0:
                 remaining_skus.extend([sku for _ in range(count)])
@@ -169,7 +170,6 @@ def apply_xfn_deals(counts):
                 current_count = (count - (deal * xfn_deal['n']))
                 
                 if i == len(xfn_deals) - 1:
-                    print([sku for _ in range(current_count % xfn_deal['n'])])
                     remaining_skus.extend([sku for _ in range(current_count % xfn_deal['n'])])
                 
         else:
@@ -190,22 +190,7 @@ def checkout(skus):
     
     counts = apply_bng1f_deal(counts)
 
-    # for sku, count in counts.items():
-    #     if sku == 'A':
-    #         deal_1 = count // 5
-    #         total += deal_1 * 200
-    #         total += ((count - (deal_1 * 5)) // 3) * 130
-    #         remaining_skus.extend([sku for _ in range((count - (deal_1 * 5)) % 3)])
-
-    #     elif sku == 'B':
-    #         total += (count // 2) * 45
-    #         remaining_skus.extend([sku for _ in range(count % 2)])
-
-    #     else:
-    #         remaining_skus.extend([sku for _ in range(count)])
-
     remaining_skus, total = apply_xfn_deals(counts)
-
 
     for sku in remaining_skus:
         if sku in items.keys():
@@ -214,3 +199,4 @@ def checkout(skus):
             return -1
         
     return total
+
