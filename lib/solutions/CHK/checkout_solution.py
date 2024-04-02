@@ -11,11 +11,13 @@ def checkout(skus):
     for sku, count in counts.items():
         if sku == 'A':
             total += (count // 3) * 130
+            remaining_skus.extend([sku for _ in range(count % 3)])
+        
+        if sku == 'B':
+            total += (count // 2) * 45
+            remaining_skus.extend([sku for _ in range(count % 2)])
 
-            for _ in range(count % 3):
-                remaining_skus.append(sku)
-
-    print(remaining_skus)
+    print(total, remaining_skus)
     exit()
 
 
@@ -36,3 +38,4 @@ def checkout(skus):
 
 if __name__ == "__main__":
     checkout("AABBAABCD")
+
