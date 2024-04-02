@@ -128,6 +128,7 @@ def apply_bng1f_deal(counts):
     res = {}
 
     for sku, count in counts.items():
+        print(sku)
         if sku in items.keys() and 'deals' in items[sku]:
             bng1f_deals = [x for x in items[sku]['deals'] if x['type'] == 'bng1f']
 
@@ -135,13 +136,12 @@ def apply_bng1f_deal(counts):
                 res[sku] = count
                 print(sku, count)
                 continue
-            else:
-                bng1f_deal = bng1f_deals[0] # NB: assumes only one bng1f deal per item
+
+            bng1f_deal = bng1f_deals[0] # NB: assumes only one bng1f deal per item
 
             if bng1f_deal['f'] == sku:
                 free_count = counts[sku] // bng1f_deal['n'] + 1
                 res[sku] = count - free_count if counts[sku] - free_count >= 0 else 0
-                
             else:
                 free_count = counts[sku] // bng1f_deal['n']
                 res[bng1f_deal['f']] = count - free_count if counts[bng1f_deal['f']] - free_count >= 0 else 0
@@ -172,8 +172,6 @@ def checkout(skus):
     #     free_f = counts['F'] // 3
     #     counts['F'] -= free_f if counts['F'] - free_f >= 0 else 0
 
-    print(counts)
-
     for sku, count in counts.items():
         if sku == 'A':
             deal_1 = count // 5
@@ -188,8 +186,6 @@ def checkout(skus):
         else:
             remaining_skus.extend([sku for _ in range(count)])
 
-    print(remaining_skus)
-
     for sku in remaining_skus:
         if sku in items.keys():
             total += items[sku]['price']
@@ -197,6 +193,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
