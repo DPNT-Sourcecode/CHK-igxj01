@@ -14,9 +14,8 @@ def checkout(skus):
         if sku == 'A':
             deal_1 = count // 5
             total += deal_1 * 200
-            # print(deal_1, count, (count - (deal_1 * 5)) // 3)
             total += ((count - (deal_1 * 5)) // 3) * 130
-            remaining_skus.extend([sku for _ in range((count - deal_1) % 3)])
+            remaining_skus.extend([sku for _ in range((count - (deal_1 * 5)) % 3)])
 
         elif sku == 'B':
             total += (count // 2) * 45
@@ -24,6 +23,7 @@ def checkout(skus):
 
         else:
             remaining_skus.extend([sku for _ in range(count)])
+    print(remaining_skus)
 
     for sku in remaining_skus:
         if sku == 'A':
@@ -40,6 +40,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
