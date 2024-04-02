@@ -1,28 +1,122 @@
 from collections import Counter
 
 items = {
-    'A': {'price': 50},
-    'B': {'price': 30},
+    'A': {
+        'price': 50,
+        'deals': [
+            {'type': 'nfx',
+             'n': 3,
+             'x': 130},
+            {'type': 'nfx',
+             'n': 5,
+             'x': 200},             
+        ]
+    },
+    'B': {
+        'price': 30,
+        'deals': [
+            {'type': 'nfx',
+             'n': 2,
+             'x': 45},
+          ]
+    },
     'C': {'price': 20},
     'D': {'price': 15},
-    'E': {'price': 40},
-    'F': {'price': 10},
+    'E': {
+        'price': 40,
+        'deals': [
+            {'type': 'bng1f',
+             'n': 2,
+             'f': 'B'},
+        ]
+    },
+    'F': {
+        'price': 10,
+        'deals': [
+            {'type': 'bng1f',
+             'n': 2,
+             'f': 'F'},
+        ]
+    },
     'G': {'price': 20},
-    'H': {'price': 10},
+    'H': {
+        'price': 10,
+        'deals': [
+            {'type': 'nfx',
+             'n': 5,
+             'x': 45},
+            {'type': 'nfx',
+             'n': 10,
+             'x': 80},
+        ]
+    
+    },
     'I': {'price': 35},
     'J': {'price': 60},
-    'K': {'price': 80},
+    'K': {
+        'price': 80,
+        'deals': [
+            {'type': 'nfx',
+             'n': 2,
+             'x': 150}
+        ]
+    },
     'L': {'price': 90},
     'M': {'price': 15},
-    'N': {'price': 40},
+    'N': {
+        'price': 40,
+        'deals': [
+            {'type': 'bng1f',
+             'n': 3,
+             'f': 'M'}
+        ]
+    },
     'O': {'price': 10},
-    'P': {'price': 50},
-    'Q': {'price': 30},
-    'R': {'price': 50},
+    'P': {
+        'price': 50,
+        'deals': [
+            {'type': 'nfx',
+             'n': 5,
+             'x': 200}
+        ]
+    },
+    'Q': {
+        'price': 30,
+        'deals': [
+            {'type': 'nfx',
+             'n': 3,
+             'x': 80}
+        ]
+    },
+    'R': {
+        'price': 50,
+        'deals': [
+            {'type': 'bng1f',
+             'n': 3,
+             'f': 'Q'}
+        ]
+    },
     'S': {'price': 30},
     'T': {'price': 20},
-    'U': {'price': 50},
-    'V': {'price': 50},
+    'U': {
+        'price': 50,
+        'deals': [
+            {'type': 'bng1f',
+             'n': 3,
+             'f': 'U'}
+        ]
+    },
+    'V': {
+        'price': 50,
+        'deals': [
+            {'type': 'nfx',
+             'n': 2,
+             'x': 90},
+            {'type': 'nfx',
+             'n': 3,
+             'x': 130}
+        ]
+    },
     'W': {'price': 20},
     'X': {'price': 90},
     'Y': {'price': 10},
@@ -66,4 +160,3 @@ def checkout(skus):
             return -1
         
     return total
-
