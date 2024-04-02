@@ -23,6 +23,13 @@ class TestCheckout():
         assert checkout_solution.checkout('FFFFF') == 40
         assert checkout_solution.checkout('FFFFFF') == 40
         assert checkout_solution.checkout('FFFFFFF') == 50
+
+        assert checkout_solution.checkout('AABBAABCDFF') == 310
+        assert checkout_solution.checkout('AABBAABCDEEFFF') == 360
+        assert checkout_solution.checkout('AABBAAABCDEEFFFF') == 390
+        assert checkout_solution.checkout('AABBAAAABCDEEFFFFF') == 450
+        assert checkout_solution.checkout('AABBAAAAAABCDEEFFFFFF') == 530
         
+
 
 
