@@ -218,16 +218,10 @@ def apply_nfx_deals(counts):
 
 def apply_anfx_deals(counts, remaining_skus, total):
     anfx_deals = []
-    for sku in [item for item in items.keys() if 'deals' in item]:
+    for sku in [k for k, v in items.items() if 'deals' in v]:
         anfx_deals += [x for x in items[sku]['deals'] if x['type'] == 'anfx']
-
-    print(anfx_deals)
     
-
-    anfx_deals = [dict(tup) for tup in {tuple(d.items()) for d in anfx_deals}]
-    print(anfx_deals)
-    
-    #NB: Assuming only one group deal can be applied
+    #NB: Assuming only one group deal applied
     if 'items' in anfx_deals[0]:
         nfx_deal = anfx_deals[0]
         temp = dict(counts)
@@ -265,8 +259,3 @@ def checkout(skus):
             return -1
         
     return total
-
-
-
-
-
