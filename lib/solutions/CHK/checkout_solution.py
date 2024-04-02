@@ -160,11 +160,16 @@ def apply_xfn_deals(counts):
                 remaining_skus.extend([sku for _ in range(count)])
                 continue
 
-            for xfn_deal in xfn_deals:
-                deal_1 = count // 5
-                total += deal_1 * 200
-                total += ((count - (deal_1 * 5)) // 3) * 130
-                remaining_skus.extend([sku for _ in range((count - (deal_1 * 5)) % 3)])
+            current_count = count
+
+            for i, xfn_deal in enumerate(xfn_deals):
+                deal = current_count // xfn_deal['n']
+                total += deal * xfn_deal['x']
+                current_count = (count - (deal * xfn_deal['n']))
+                
+                if i == len(xfn_deals) - 1:
+                    remaining_skus.extend([sku for _ in range(current_count % xfn_deal['n'])])
+                
         else:
             remaining_skus.extend([sku for _ in range(count)])
     
@@ -183,19 +188,21 @@ def checkout(skus):
     
     counts = apply_bng1f_deal(counts)
 
-    for sku, count in counts.items():
-        if sku == 'A':
-            deal_1 = count // 5
-            total += deal_1 * 200
-            total += ((count - (deal_1 * 5)) // 3) * 130
-            remaining_skus.extend([sku for _ in range((count - (deal_1 * 5)) % 3)])
+    # for sku, count in counts.items():
+    #     if sku == 'A':
+    #         deal_1 = count // 5
+    #         total += deal_1 * 200
+    #         total += ((count - (deal_1 * 5)) // 3) * 130
+    #         remaining_skus.extend([sku for _ in range((count - (deal_1 * 5)) % 3)])
 
-        elif sku == 'B':
-            total += (count // 2) * 45
-            remaining_skus.extend([sku for _ in range(count % 2)])
+    #     elif sku == 'B':
+    #         total += (count // 2) * 45
+    #         remaining_skus.extend([sku for _ in range(count % 2)])
 
-        else:
-            remaining_skus.extend([sku for _ in range(count)])
+    #     else:
+    #         remaining_skus.extend([sku for _ in range(count)])
+
+    remaining_skus, total = apply_xfn_deals(counts)
 
     for sku in remaining_skus:
         if sku in items.keys():
@@ -204,5 +211,6 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
