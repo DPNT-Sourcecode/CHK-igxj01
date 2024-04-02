@@ -124,6 +124,25 @@ items = {
 }
 
 
+def apply_bng1f_deal(counts):
+    for sku, count in counts.items():
+        if sku in items.keys():
+            bng1f_deals = [x for x in items[sku]['deals'] if x['type'] == 'bng1f']
+            
+            if len(bng1f_deals) == 0:
+                continue
+            else:
+                bng1f_deal = bng1f_deals[0] # NB: assumes only one bng1f deal per item
+
+            if bng1f_deal['f'] == sku:
+                free_count = counts[sku] // bng1f_deal['n'] + 1
+                counts[sku] -= free_count if counts[sku] - free_count >= 0 else 0
+                
+            else:
+                free_count = counts[sku] // bng1f_deal['n']
+                counts[bng1f_deal['f']] -= free_count if counts[bng1f_deal['f']] - free_count >= 0 else 0
+        
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -131,13 +150,14 @@ def checkout(skus):
     counts = Counter(skus)
     remaining_skus = []
 
-    free_b = counts['E'] // 2
-    counts['B'] -= free_b if counts['B'] - free_b >= 0 else 0
+    counts = apply_bng1f_deal(counts)
 
-    if counts['F'] >= 3:
-        free_f = counts['F'] // 3
-        
-        counts['F'] -= free_f if counts['F'] - free_f >= 0 else 0
+    # free_b = counts['E'] // 2
+    # counts['B'] -= free_b if counts['B'] - free_b >= 0 else 0
+
+    # if counts['F'] >= 3:
+    #     free_f = counts['F'] // 3
+    #     counts['F'] -= free_f if counts['F'] - free_f >= 0 else 0
 
     for sku, count in counts.items():
         if sku == 'A':
@@ -160,3 +180,4 @@ def checkout(skus):
             return -1
         
     return total
+
