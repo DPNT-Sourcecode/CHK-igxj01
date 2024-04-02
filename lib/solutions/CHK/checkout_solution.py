@@ -191,7 +191,7 @@ def apply_group_deals(counts, remaining_skus, total):
             counts = [{'sku': k, 'count': v} for k, v in temp.items() if k in deal['items'] and v > 0]
             min_n = sorted(counts, key=lambda x: x['count'])[:deal['n']]
 
-            if len(min_n) == 3:
+            if len(min_n) == deal['n']:
                 total += 45
 
                 for i in range(deal['n']):
@@ -226,6 +226,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
