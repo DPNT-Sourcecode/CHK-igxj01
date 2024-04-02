@@ -184,13 +184,11 @@ def checkout(skus):
         if sku not in items.keys():
             return -1
 
-    total = 0
-    counts = Counter(skus)
-    remaining_skus = []
+    counts = apply_bng1f_deal(Counter(skus))
+    print(counts)
     
-    counts = apply_bng1f_deal(counts)
-
     remaining_skus, total = apply_xfn_deals(counts)
+    print(skus, remaining_skus)
 
     for sku in remaining_skus:
         if sku in items.keys():
@@ -199,4 +197,5 @@ def checkout(skus):
             return -1
         
     return total
+
 
