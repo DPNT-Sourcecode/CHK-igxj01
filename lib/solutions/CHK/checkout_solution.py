@@ -197,8 +197,7 @@ def apply_group_deals(counts, remaining_skus, total):
                 for i in range(deal['n']):
                     sku = min_n[i]['sku']
                     temp[sku] -= 1
-                    print(remaining_skus.index(sku))
-                    remaining_skus.remove(remaining_skus.index(sku))
+                    del remaining_skus[remaining_skus.index(sku)]
 
             else:
                 break
@@ -227,6 +226,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
