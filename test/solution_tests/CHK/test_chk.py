@@ -7,12 +7,15 @@ class TestCheckout():
         assert checkout_solution.checkout('') == 0
 
         assert checkout_solution.checkout('EEB') == 80
-        assert checkout_solution.checkout('EEEB') == 150
-        assert checkout_solution.checkout('EEEEBB') == 205
+        assert checkout_solution.checkout('EEEB') == 120
+        assert checkout_solution.checkout('EEEEBB') == 160
+        assert checkout_solution.checkout('BEBEEE') == 160
+        
 
         assert checkout_solution.checkout('AABBAABCD') == 290
         assert checkout_solution.checkout('AABBAABCDEE') == 340
         assert checkout_solution.checkout('AABBAAABCDEE') == 360
         assert checkout_solution.checkout('AABBAAAABCDEE') == 410
         assert checkout_solution.checkout('AABBAAAAAABCDEE') == 490
+
 
