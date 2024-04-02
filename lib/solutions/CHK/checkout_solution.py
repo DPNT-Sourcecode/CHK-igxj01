@@ -99,7 +99,8 @@ items = {
     'S': {
         'price': 20,
         'deals': [
-            {'type': 'a3fx',
+            {'type': 'nfx',
+             'n': 3,
              'items': ['S', 'T', 'X', 'Y', 'Z'],
              'x': 45}
         ]
@@ -107,7 +108,8 @@ items = {
     'T': {
         'price': 20,
         'deals': [
-            {'type': 'a3fx',
+            {'type': 'nfx',
+             'n': 3,
              'i': ['S', 'T', 'X', 'Y', 'Z'],
              'x': 45}
         ]
@@ -135,7 +137,8 @@ items = {
     'X': {
         'price': 17,
         'deals': [
-            {'type': 'a3fx',
+            {'type': 'nfx',
+             'n': 3,
              'items': ['S', 'T', 'X', 'Y', 'Z'],
              'x': 45}
         ]
@@ -143,7 +146,7 @@ items = {
     'Y': {
         'price': 20,
         'deals': [
-            {'type': 'a3fx',
+            {'type': 'nfx',
              'i': ['S', 'T', 'X', 'Y', 'Z'],
              'x': 45}
         ]
@@ -151,7 +154,8 @@ items = {
     'Z': {
         'price': 21,
         'deals': [
-            {'type': 'b3ifx',
+            {'type': 'nfx',
+             'n': 3,
              'items': ['S', 'T', 'X', 'Y', 'Z'],
              'x': 45}
         ]
@@ -211,7 +215,6 @@ def apply_nfx_deals(counts):
     
     return remaining_skus, total
 
-
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -229,6 +232,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
