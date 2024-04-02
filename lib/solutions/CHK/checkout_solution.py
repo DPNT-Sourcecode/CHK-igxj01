@@ -54,11 +54,11 @@ items = {
     'I': {'price': 35},
     'J': {'price': 60},
     'K': {
-        'price': 80,
+        'price': 70,
         'deals': [
             {'type': 'nfx',
              'n': 2,
-             'x': 150}
+             'x': 120}
         ]
     },
     'L': {'price': 90},
@@ -194,4 +194,5 @@ def checkout(skus):
             return -1
         
     return total
+
 
