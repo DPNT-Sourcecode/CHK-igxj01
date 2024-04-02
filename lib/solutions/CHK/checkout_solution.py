@@ -99,7 +99,7 @@ items = {
     'S': {'price': 30},
     'T': {'price': 20},
     'U': {
-        'price': 50,
+        'price': 40,
         'deals': [
             {'type': 'bng1f',
              'n': 3,
@@ -194,3 +194,4 @@ def checkout(skus):
             return -1
         
     return total
+
