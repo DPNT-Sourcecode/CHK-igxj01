@@ -96,8 +96,22 @@ items = {
              'f': 'Q'}
         ]
     },
-    'S': {'price': 30},
-    'T': {'price': 20},
+    'S': {
+        'price': 20,
+        'deals': [
+            {'type': 'a3fx',
+             'items': ['S', 'T', 'X', 'Y', 'Z'],
+             'x': 45}
+        ]
+    },
+    'T': {
+        'price': 20,
+        'deals': [
+            {'type': 'a3fx',
+             'i': ['S', 'T', 'X', 'Y', 'Z'],
+             'x': 45}
+        ]
+    },
     'U': {
         'price': 40,
         'deals': [
@@ -118,9 +132,30 @@ items = {
         ]
     },
     'W': {'price': 20},
-    'X': {'price': 90},
-    'Y': {'price': 10},
-    'Z': {'price': 50}
+    'X': {
+        'price': 17,
+        'deals': [
+            {'type': 'a3fx',
+             'items': ['S', 'T', 'X', 'Y', 'Z'],
+             'x': 45}
+        ]
+    },
+    'Y': {
+        'price': 20,
+        'deals': [
+            {'type': 'a3fx',
+             'i': ['S', 'T', 'X', 'Y', 'Z'],
+             'x': 45}
+        ]
+    },
+    'Z': {
+        'price': 21,
+        'deals': [
+            {'type': 'b3ifx',
+             'items': ['S', 'T', 'X', 'Y', 'Z'],
+             'x': 45}
+        ]
+    }
 }
 
 
@@ -194,5 +229,6 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
