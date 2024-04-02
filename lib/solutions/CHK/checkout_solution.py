@@ -4,10 +4,13 @@ from collections import Counter
 # skus = unicode string
 def checkout(skus):
     total = 0
-    counts = Counter(skus)
+    counts = Counter(skus).items()
     remaining_skus = []
 
-    for sku, count in counts.items():
+    free_b = counts['E'] // 2
+    counts['B'] -= free_b if counts['B'] - free_b > 0 else 0
+
+    for sku, count in counts:
         if sku == 'A':
             total += (count // 3) * 130
             remaining_skus.extend([sku for _ in range(count % 3)])
@@ -32,3 +35,4 @@ def checkout(skus):
             return -1
         
     return total
+
