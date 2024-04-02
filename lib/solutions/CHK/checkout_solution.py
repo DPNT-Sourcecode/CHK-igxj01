@@ -153,8 +153,6 @@ def apply_nfx_deals(counts):
     total = 0
 
     for sku, count in counts.items():
-        print('sku: ', sku)
-
         if sku in items.keys() and 'deals' in items[sku]:
             nfx_deals = [x for x in items[sku]['deals'] if x['type'] == 'nfx']
             nfx_deals = sorted(nfx_deals, key=lambda x: x['n'], reverse=True)
@@ -168,16 +166,18 @@ def apply_nfx_deals(counts):
             for i, nfx_deal in enumerate(nfx_deals):
                 deal = current_count // nfx_deal['n']
                 total += deal * nfx_deal['x']
-
-                current_count = (count - (deal * nfx_deal['n']))
                 
                 if i == len(nfx_deals) - 1:
                     print(current_count, nfx_deal['n'], current_count % nfx_deal['n'])
-                    remaining_skus.extend([sku for _ in range(current_count % nfx_deal['n'])])                
+                    remaining_skus.extend([sku for _ in range(current_count % nfx_deal['n'])])
+
+                current_count = (count - (deal * nfx_deal['n']))
+
         else:
             remaining_skus.extend([sku for _ in range(count)])
     
     return remaining_skus, total
+
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -187,10 +187,7 @@ def checkout(skus):
             return -1
 
     counts = apply_bng1f_deal(Counter(skus))
-    print(counts)
-
     remaining_skus, total = apply_nfx_deals(counts)
-    print(skus, remaining_skus)
 
     for sku in remaining_skus:
         if sku in items.keys():
@@ -199,6 +196,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
