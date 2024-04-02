@@ -8,7 +8,7 @@ def checkout(skus):
     remaining_skus = []
 
     if counts['E'] == 2:
-        counts['B'] -= 2 if counts['B'] - 2 >= 0 else 0
+        counts['B'] -= 1 if counts['B'] - 1 >= 0 else 0
 
     for sku, count in counts.items():
         if sku == 'A':
@@ -39,6 +39,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
