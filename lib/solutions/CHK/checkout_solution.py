@@ -137,8 +137,8 @@ def apply_bng1f_deal(counts):
             bng1f_deal = bng1f_deals[0] # NB: assumes only one bng1f deal per item
 
             if bng1f_deal['f'] == sku:
-                if counts[sku] > bng1f_deal['n'] + 1:
-                    free_count = counts[sku] // bng1f_deal['n'] + 1
+                if counts[sku] >= bng1f_deal['n'] + 1:
+                    free_count = counts[sku] // (bng1f_deal['n'] + 1)
                     res[sku] -= free_count if counts[sku] - free_count >= 0 else 0
             else:
                 free_count = counts[sku] // bng1f_deal['n']
@@ -194,6 +194,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
