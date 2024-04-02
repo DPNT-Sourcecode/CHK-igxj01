@@ -192,14 +192,18 @@ def apply_group_deals(counts, remaining_skus, total):
             counts = [{'sku': k, 'count': v, 'price': items[k]['price']} for k, v in temp.items() if k in deal['items'] and v > 0]
             counts_sorted = sorted(counts, key=lambda x: x['price'], reverse=True)
 
-            to_group = [[x['sku'] for _ in range(x['count']) ] for x in counts_sorted]
-            print(to_group)
+            to_group = []
+            for x in counts_sorted:
+                for _ in range(x['count']):
+                    to_group.append(x['sku'])
 
-            if False: #len(counts_sorted) == deal['n']:
+            first_group = to_group[:3]
+
+            if len(first_group) == deal['n']:
                 total += 45
 
                 for i in range(deal['n']):
-                    sku = min_n[i]['sku']
+                    sku = first_group[i]
                     temp[sku] -= 1
                     del remaining_skus[remaining_skus.index(sku)]
             else:
@@ -226,5 +230,6 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
