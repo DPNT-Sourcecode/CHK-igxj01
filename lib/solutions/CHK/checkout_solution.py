@@ -10,18 +10,16 @@ def checkout(skus):
     free_b = counts['E'] // 2
     counts['B'] -= free_b if counts['B'] - free_b > 0 else 0
 
-    print(counts)
-
     for sku, count in counts.items():
         if sku == 'A':
             deal_1 = count // 5
             total += deal_1 * 200
             # remaining = count % 5
 
-            # print(deal_1, total, remaining_skus)
-
             total += ((count - deal_1) // 3) * 130
             remaining_skus.extend([sku for _ in range((count - deal_1) % 3)])
+            print(deal_1, total, remaining_skus)
+
 
         
         elif sku == 'B':
@@ -46,6 +44,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
