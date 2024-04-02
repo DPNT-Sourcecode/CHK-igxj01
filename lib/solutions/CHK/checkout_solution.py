@@ -200,20 +200,38 @@ def apply_nfx_deals(counts):
                 remaining_skus.extend([sku for _ in range(count)])
                 continue
 
-            current_count = count
+            #NB: Assuming only one group deal can be applied
+            if 'items' in nfx_deals[0]:
+                counts = [{'item': k, 'count': v} for k, v in counts if k in nfx_deals[0]['items'] and v > 0]
 
-            for i, nfx_deal in enumerate(nfx_deals):
-                deal = current_count // nfx_deal['n']
-                total += deal * nfx_deal['x']
-                
-                if i == len(nfx_deals) - 1:
-                    remaining_skus.extend([sku for _ in range(current_count % nfx_deal['n'])])
+                while True:
+                    
+                    min_3 = sorted(counts, key=lambda x: x['count'])[:3]
 
-                current_count = (count - (deal * nfx_deal['n']))
+                    if len(min_3) == 3:
+
+                    else:
+                        break
+            
+                    
+
+
+            else:
+                current_count = count
+
+                for i, nfx_deal in enumerate(nfx_deals):
+                    deal = current_count // nfx_deal['n']
+                    total += deal * nfx_deal['x']
+                    
+                    if i == len(nfx_deals) - 1:
+                        remaining_skus.extend([sku for _ in range(current_count % nfx_deal['n'])])
+
+                    current_count = (count - (deal * nfx_deal['n']))
         else:
             remaining_skus.extend([sku for _ in range(count)])
     
     return remaining_skus, total
+
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -232,3 +250,4 @@ def checkout(skus):
             return -1
         
     return total
+
