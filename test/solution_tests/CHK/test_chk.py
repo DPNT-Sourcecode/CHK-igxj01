@@ -45,6 +45,3 @@ class TestCheckout():
         # assert checkout_solution.checkout('U') == 40
 
         
-
-
-
