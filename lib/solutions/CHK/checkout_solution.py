@@ -158,7 +158,6 @@ def apply_nfx_deals(counts):
         if sku in items.keys() and 'deals' in items[sku]:
             nfx_deals = [x for x in items[sku]['deals'] if x['type'] == 'nfx']
             nfx_deals = sorted(nfx_deals, key=lambda x: x['n'], reverse=True)
-            print(nfx_deals)
 
             if len(nfx_deals) == 0:
                 remaining_skus.extend([sku for _ in range(count)])
@@ -167,19 +166,16 @@ def apply_nfx_deals(counts):
             current_count = count
 
             for i, nfx_deal in enumerate(nfx_deals):
-                print(current_count)
-
                 deal = current_count // nfx_deal['n']
                 total += deal * nfx_deal['x']
-                print(deal, total)
 
                 current_count = (count - (deal * nfx_deal['n']))
                 
                 if i == len(nfx_deals) - 1:
+                    print(current_count, nfx_deal['n'], current_count % nfx_deal['n'])
                     remaining_skus.extend([sku for _ in range(current_count % nfx_deal['n'])])                
         else:
             remaining_skus.extend([sku for _ in range(count)])
-    print(remaining_skus, total)
     
     return remaining_skus, total
 
@@ -203,6 +199,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
