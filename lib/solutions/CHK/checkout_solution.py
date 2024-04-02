@@ -198,7 +198,6 @@ def apply_group_deals(counts, remaining_skus, total):
                     sku = min_n[i]['sku']
                     temp[sku] -= 1
                     del remaining_skus[remaining_skus.index(sku)]
-
             else:
                 break
 
@@ -214,10 +213,7 @@ def checkout(skus):
 
     counts = apply_bng1f_deal(Counter(skus))
     remaining_skus, total = apply_nfx_deals(counts)
-    print(remaining_skus, total)
-
     remaining_skus, total = apply_group_deals(counts, remaining_skus, total)
-    print(remaining_skus, total)
 
     for sku in remaining_skus:
         if sku in items.keys():
@@ -226,6 +222,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
