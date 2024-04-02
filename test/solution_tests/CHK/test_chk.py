@@ -16,6 +16,9 @@ class TestCheckout():
         assert checkout_solution.checkout('AABBAAAABCDEE') == 410
         assert checkout_solution.checkout('AABBAAAAAABCDEE') == 490
 
+        assert checkout_solution.checkout('QQ') == 60
+        assert checkout_solution.checkout('QQQ') == 80
+
         assert checkout_solution.checkout('RRR') == 150
         assert checkout_solution.checkout('RRRQ') == 150
 
@@ -32,4 +35,5 @@ class TestCheckout():
         assert checkout_solution.checkout('AABBAAAABCDEEFFFFF') == 450
         assert checkout_solution.checkout('AABBAAAAAABCDEEFFFFFF') == 530
         
+
 

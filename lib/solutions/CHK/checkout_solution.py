@@ -143,7 +143,8 @@ def apply_bng1f_deal(counts):
 
             else:
                 free_count = counts[sku] // bng1f_deal['n']
-                res[bng1f_deal['f']] -= free_count if counts[bng1f_deal['f']] - free_count >= 0 else 0
+                if bng1f_deal['f'] in res:
+                    res[bng1f_deal['f']] -= free_count if counts[bng1f_deal['f']] - free_count >= 0 else 0
     
     return res
 
@@ -168,7 +169,6 @@ def apply_nfx_deals(counts):
                 total += deal * nfx_deal['x']
                 
                 if i == len(nfx_deals) - 1:
-                    print(current_count, nfx_deal['n'], current_count % nfx_deal['n'])
                     remaining_skus.extend([sku for _ in range(current_count % nfx_deal['n'])])
 
                 current_count = (count - (deal * nfx_deal['n']))
@@ -196,6 +196,7 @@ def checkout(skus):
             return -1
         
     return total
+
 
 
 
